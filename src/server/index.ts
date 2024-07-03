@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import '../domain/repositories/db.config';
+import '../database/db.config';
 dotenv.config();
 
 const app = express();
@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-import usuarioRouter from "../routes/usuario.routes";
+import {userRouter} from "../auth/infraestructure/userRouter";
 
-app.use('/usuarios', usuarioRouter)
+app.use('/usuarios', userRouter)
 
 
 app.listen(port, () => {
