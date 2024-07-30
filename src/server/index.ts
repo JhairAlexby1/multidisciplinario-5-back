@@ -18,8 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 import {userRouter} from "../auth/infraestructure/userRouter";
+import {sensorRouter} from "../sensor/infraestructure/sensorRouter";
 
 app.use('/usuarios', userRouter)
+app.use('/sensores', sensorRouter)
 
 
 app.listen(port, () => {
