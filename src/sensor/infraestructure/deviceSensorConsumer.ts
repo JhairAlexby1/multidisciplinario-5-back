@@ -1,4 +1,4 @@
-import mqtt from 'mqtt';
+
 import { MQTTX} from "./MQTTX";
 
 export class DeviceSensorConsumer {
@@ -13,9 +13,9 @@ export class DeviceSensorConsumer {
     start() {
         this.mqttx.consumeMessage('salida/01', (message) => {
             if (message !== null) {
-                const messageContent = JSON.parse(message.content.toString());
+                console.log('Message received:', message.toString());
+                const messageContent = JSON.parse(message.toString());
                 console.log('Message received:', messageContent);
-                this.mqttx.ackMessage(message);
             }
         });
     }
