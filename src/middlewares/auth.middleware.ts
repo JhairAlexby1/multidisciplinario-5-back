@@ -26,9 +26,13 @@ export const verifyToken = async (req: any, res: any, next: any) => {
     }
 }
 
-export const verifyTokenWs = async (token: string) => {
+export const verifyTokenWs = async (socket: any, next: any) => {
     try {
-        return await getToken(token);
+        const token = socket.handshake.headers['authorization'];
+        const result = await getToken(token);
+        if(result === 'jwt expired') return socket.disconnect();
+        if(result === 'invalid token') return socket.disconnect();
+        next();
     } catch (error) {
         return error;
     }

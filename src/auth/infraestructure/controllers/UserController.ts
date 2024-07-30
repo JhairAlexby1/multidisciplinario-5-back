@@ -20,7 +20,7 @@ export class UserController {
             } else {
                 return res.status(400).send({
                     status: "Error",
-                    data: [],
+                    data: token,
                     Message: "Error Al Logear User"
                 });
             }

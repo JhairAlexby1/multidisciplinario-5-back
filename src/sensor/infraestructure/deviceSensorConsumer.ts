@@ -11,7 +11,7 @@ export class DeviceSensorConsumer {
         this.mqttx.createQueue('salida/01');
     }
 
-    async start() {
+    async start(io: any) {
         console.log('Starting consumer');
         this.mqttx.consumeMessage('salida/01', (message) => {
             try {
@@ -25,14 +25,17 @@ export class DeviceSensorConsumer {
                     webHookService.sendWebhookNotification(messageContent.temperature);
                 }
                 mongoSensorRepository.save({lumen: messageContent.luminosity, temperature: messageContent.temperature, humidity: messageContent.humidity});
+                this.webSocketService(messageContent, io);
             } catch (error) {
                 console.error('Invalid JSON message received:', message);
             }
         });
     }
+
+     async webSocketService(sensors: {lumen: number,  temperature: number, humidity: number},  io:  any) {
+        io.emit('sensor:readAll', sensors)
+    }
 }
 
-const deviceSensorConsumer = new DeviceSensorConsumer();
-console.log('Starting device sensor consumer');
-deviceSensorConsumer.start();
+
 
