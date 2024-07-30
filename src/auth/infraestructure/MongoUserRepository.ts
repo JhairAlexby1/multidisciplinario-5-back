@@ -23,4 +23,14 @@ export class MongoUserRepository implements UserRepository {
         await newUser.save();
     }
 
+    async addWebhook(userId: string, webhook: string): Promise<void> {
+        const user = await UsuarioModel.findById(userId);
+        if (user) {
+            if (!user.webHook) {
+                user.webHook = webhook;
+            }
+            await user.save();
+        }
+    }
+
 }

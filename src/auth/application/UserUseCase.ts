@@ -1,6 +1,6 @@
-import { UserRepository } from "../domain/userRepository";
-import { IEcryptService } from "./services/IEncryptService";
-import { IJwtService } from "./services/IJWTService";
+import {UserRepository} from "../domain/userRepository";
+import {IEcryptService} from "./services/IEncryptService";
+import {IJwtService} from "./services/IJWTService";
 import {IUser} from "../domain/Iuser";
 
 export class UserUseCase {
@@ -16,11 +16,7 @@ export class UserUseCase {
             if (user) {
                 const isPasswordCorrect = this.encryptPassword.authPassword(password, user.password);
                 if (isPasswordCorrect) {
-                    const token = this.jwtService.generateToken({ email: user.email, name: user.name });
-
-
-                    console.log(token)
-                    return token;
+                    return this.jwtService.generateToken({email: user.email, name: user.name, _id: user._id});
                 }
             }
             return null;
@@ -37,6 +33,19 @@ export class UserUseCase {
             await this.userRepository.save(user);
         } catch (error) {
             console.error('Error in AuthUseCase register', error);
+            throw error;
+        }
+    }
+
+    async addWebhook(token: string, webhook: string): Promise<void> {
+        try {
+            const payload : object | null = this.jwtService.verifyToken(token);
+            if (!payload) throw new Error('Invalid token');
+            // @ts-ignore
+            const userId = payload._id;
+            await this.userRepository.addWebhook(userId, webhook);
+        } catch (error) {
+            console.error('Error in AuthUseCase addWebhook', error);
             throw error;
         }
     }

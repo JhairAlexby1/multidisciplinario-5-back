@@ -9,7 +9,7 @@ export class MongoSensorRepository implements SensorRepository {
             lumen: sensor.lumen,
             temperature: sensor.temperature,
             humidity: sensor.humidity,
-            fecha: sensor.fecha
+            fecha: new Date()
         });
         await newSensor.save();
     }

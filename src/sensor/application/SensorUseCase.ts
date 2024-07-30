@@ -1,4 +1,4 @@
-import {Sensor} from "../domain/sensor";
+import {ISensor} from "../domain/Isensor";
 import {SensorRepository} from "../domain/sensorRepository";
 import { MQTTX } from "../infraestructure/MQTTX";
 
@@ -19,7 +19,7 @@ export class SensorUseCase {
         return Object.values(this.sensorRepository.getByDate(date));
     }
 
-    async saveSensorData(sensor: Sensor) {
+    async saveSensorData(sensor: ISensor) {
         await this.sensorRepository.save(sensor);
     }
 }

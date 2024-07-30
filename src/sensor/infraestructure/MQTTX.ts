@@ -4,7 +4,7 @@ export class MQTTX {
     private client: mqtt.MqttClient;
 
     constructor() {
-        this.client = mqtt.connect('mqtt://localhost:1883');
+        this.client = mqtt.connect(process.env.MQTTX_URL!);
     }
 
     connect() {

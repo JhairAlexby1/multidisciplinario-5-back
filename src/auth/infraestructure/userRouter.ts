@@ -11,3 +11,7 @@ userRouter.post(
 userRouter.post(
     "/register", userController.register.bind(userController)
 );
+
+userRouter.post(
+    "/webhook", userController.addWebhook.bind(userController)
+);

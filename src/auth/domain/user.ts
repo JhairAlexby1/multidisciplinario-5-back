@@ -4,7 +4,8 @@ export class User {
         readonly _id: mongoose.Types.ObjectId,
         readonly name: string,
         readonly email: string,
-        readonly password: string
+        readonly password: string,
+        readonly webHook?: string
     ) {}
 
 }

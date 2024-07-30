@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+import '../sensor/infraestructure/deviceSensorConsumer';
 import {userRouter} from "../auth/infraestructure/userRouter";
 import {sensorRouter} from "../sensor/infraestructure/sensorRouter";
 
