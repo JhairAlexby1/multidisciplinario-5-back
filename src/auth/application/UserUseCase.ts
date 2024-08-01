@@ -49,4 +49,13 @@ export class UserUseCase {
             throw error;
         }
     }
+
+    async getAll(): Promise<IUser[]> {
+        try {
+            return await this.userRepository.getAll();
+        } catch (error) {
+            console.error('Error in AuthUseCase getAll', error);
+            throw error;
+        }
+    }
 }

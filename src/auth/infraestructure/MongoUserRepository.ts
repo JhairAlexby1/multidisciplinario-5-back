@@ -33,4 +33,9 @@ export class MongoUserRepository implements UserRepository {
         }
     }
 
+    async getAll(): Promise<User[]> {
+        const users = await UsuarioModel.find();
+        return users.map(user => new User(user._id, user.nombre, user.email, user.password));
+    }
+
 }

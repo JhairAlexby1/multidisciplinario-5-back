@@ -15,3 +15,11 @@ userRouter.post(
 userRouter.post(
     "/webhook", userController.addWebhook.bind(userController)
 );
+
+userRouter.get(
+    "/all", userController.getAll.bind(userController)
+);
+
+userRouter.post(
+    "/logout", userController.logout.bind(userController)
+)

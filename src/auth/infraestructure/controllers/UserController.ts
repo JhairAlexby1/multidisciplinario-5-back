@@ -56,6 +56,23 @@ export class UserController {
         }
     }
 
+    async getAll(req: Request, res: Response) {
+        try {
+            const users = await this.userUseCase.getAll();
+            return res.status(200).send({
+                status: "success",
+                data: users,
+                message: "Users Encontrados"
+            })
+        } catch (error) {
+            console.error("Error In Controller", error);
+            res.status(404).send({
+                status: "error",
+                Message: "Error In Server"
+            });
+        }
+    }
+
     async addWebhook(req: Request, res: Response) {
         try {
             const token = req.cookies['token'];
@@ -77,4 +94,22 @@ export class UserController {
             });
         }
     }
+
+    async logout(req: Request, res: Response) {
+        try {
+            res.clearCookie('token');
+            res.status(200).send({
+                status: "success",
+                message: "User Deslogeado"
+            })
+        } catch (error) {
+            console.error("Error In Controller", error);
+            res.status(404).send({
+                status: "error",
+                Message: "Error In Server"
+            });
+        }
+    }
+
+
 }
