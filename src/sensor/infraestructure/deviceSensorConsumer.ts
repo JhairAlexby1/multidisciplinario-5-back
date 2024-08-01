@@ -33,7 +33,8 @@ export class DeviceSensorConsumer {
     }
 
      async webSocketService(sensors: {lumen: number,  temperature: number, humidity: number},  io:  any) {
-        io.emit('sensor:readAll', sensors)
+        console.log('Emitting sensor data');
+        io.emit('sensors:readAll', sensors)
     }
 }
 

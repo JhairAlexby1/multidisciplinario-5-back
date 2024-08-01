@@ -7,20 +7,21 @@ export class UserController {
     async login(req: Request, res: Response) {
         try {
             let { email, password } = req.body;
+            console.log("email", email);
 
             let token = await this.userUseCase.login(email, password);
-
+            console.log("token", token);
             if (token) {
                 res.setHeader('Set-Cookie', token)
                 res.setHeader('Authorization', token)
                 res.status(200).send({
                     status: "success",
+                    data: token,
                     message: "User Logeado"
                 })
             } else {
                 return res.status(400).send({
                     status: "Error",
-                    data: token,
                     Message: "Error Al Logear User"
                 });
             }
@@ -35,7 +36,9 @@ export class UserController {
 
     async register(req: Request, res: Response) {
         try {
+            console.log("req.body", req.body);
             let { name, email, password } = req.body;
+            console.log("name", name);
 
             await this.userUseCase.register(name, email, password);
 
