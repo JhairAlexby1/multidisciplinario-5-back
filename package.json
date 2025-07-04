@@ -27,6 +27,7 @@
     "@types/ws": "^8.5.10",
     "amqplib": "^0.10.4",
     "axios": "^1.7.2",
+    "bcrypt": "^6.0.0",
     "cookie": "^0.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
