@@ -14,7 +14,15 @@ jest.mock('mongoose', () => ({
     readyState: 0
   },
   Schema: jest.fn(),
-  model: jest.fn()
+  model: jest.fn(),
+  Types: {
+    ObjectId: jest.fn().mockImplementation((id) => {
+      if (id) {
+        return { toString: () => id, _id: id };
+      }
+      return { toString: () => '507f1f77bcf86cd799439011', _id: '507f1f77bcf86cd799439011' };
+    })
+  }
 }));
 
 // Mock de la configuración de base de datos
